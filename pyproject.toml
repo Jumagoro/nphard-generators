@@ -18,16 +18,20 @@ classifiers = [
 license = "GPL-3.0-only"
 license-files = ["LICEN[CS]E*"]
 
+dependencies = [
+  "numpy"
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
 [project.urls]
-Homepage = "https://github.com/pypa/sampleproject"
-Issues = "https://github.com/pypa/sampleproject/issues"
+Homepage = "https://github.com/Jumagoro/nphard-generators"
+Issues = "https://github.com/Jumagoro/nphard-generators/issues"
 
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/nphard_generators"]
-
-[project.optional-dependencies]
-dev = ["pytest"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
