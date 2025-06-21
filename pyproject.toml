@@ -23,7 +23,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest"]
+dev = [
+  "pytest",
+  "flake8"
+]
 
 [project.urls]
 Homepage = "https://github.com/Jumagoro/nphard-generators"
