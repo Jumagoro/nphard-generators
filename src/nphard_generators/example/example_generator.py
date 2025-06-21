@@ -3,5 +3,5 @@ def add_one(number):
 
 class FourGenerator:
 
-    def generate() -> int:
+    def generate(self) -> int:
         return 4

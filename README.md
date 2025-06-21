@@ -13,5 +13,26 @@ Ensure you have a valid python installation running, e.g. Python 3.11
 ### Installing for development:
 `pip install -e .[dev]` Installs relevant libraries as well as pytest, etc.
 
+### Install from TestPyPi
+`pip install --index-url https://test.pypi.org/simple/ --no-deps nphard-generators`
+
+## Packaging
+Generate distribution archives using `python -m build`. (Uses Hatchling as buildbackend)
+
+Upload to TestPyPi using twine:
+`python -m twine upload --repository testpypi dist/*`
+
+Upload to PyPi using twine:
+`python -m twine upload dist/*`
+
+## Workflow
+1. Clone repository
+2. Install
+3. Edit
+4. Test
+5. Build
+6. Upload
+
+
 TODO:
 [GitHub-flavored Markdown](https://guides.github.com/features/mastering-markdown/)
