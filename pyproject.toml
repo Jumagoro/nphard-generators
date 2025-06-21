@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "nphard-generators"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="Gordian Hunecke", email="gordian.hunecke@campus.lmu.de" },
 ]
@@ -19,7 +19,8 @@ license = "GPL-3.0-only"
 license-files = ["LICEN[CS]E*"]
 
 dependencies = [
-  "numpy"
+  "numpy",
+  "scipy",
 ]
 
 [project.optional-dependencies]
