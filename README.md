@@ -36,5 +36,10 @@ Upload to PyPi using twine:
 5. Build
 6. Upload
 
+## Docstring
+PEP 257; three-double-quote """ format
+Docstring for public methods, nontrivial size or non-obvious logic
+Content: How to use the method (without providing the actual code); No details
+
 TODO:
 [GitHub-flavored Markdown](https://guides.github.com/features/mastering-markdown/)
