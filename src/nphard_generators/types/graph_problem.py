@@ -1,13 +1,16 @@
 """Contains functions and a base class relevant to every basic graph problem.
 
 The module provides methods for counting edges, calculating density
-and a basic GraphProblem class.
+and a basic GraphProblem class that can be inherited.
 
 Typical usage example:
 
     n_edges = calculate_edge_count(graph)
-
+    density = calculate_graph_density(graph)
+    n_edges_max = calculate_max_edge_count(graph)
+    available_verticies = calculate_available_verticies(graph)
 """
+
 __all__ = [
     "calculate_edge_count",
     "calculate_max_edge_count",
@@ -157,7 +160,7 @@ class GraphProblem(ABC):
         return self.graph[x,y] or self.graph[y,x]
 
     @abstractmethod
-    def to_file(self, path_to_file: str, comments: list[str]):
+    def to_file(self, path_to_file: str, comments: list[str] = None):
         """Writes the problem instance to a file on the given path.
         
         Subclasses need to specify wheather they call to_tsp_file, to_mtx_file or other.
@@ -167,7 +170,7 @@ class GraphProblem(ABC):
             comments: List of strings that are converted into file specific comments
         """
 
-    def to_tsp_file(self, path_to_file: str, comments: list[str]):
+    def _to_tsp_file(self, path_to_file: str, comments: list[str] = None):
         """Writes the graph problem to a file in tsp format.
 
         Creates the file, if necessary.
@@ -191,6 +194,7 @@ class GraphProblem(ABC):
         with open(path_to_file, "w", encoding="ascii") as f:
 
             file_name = os.path.basename(path_to_file)
+            comments = comments or []
             comments_str = ";".join(comments)   # Results in comment1;comment2;...
 
             f.write(f"NAME: {file_name}\n")
@@ -202,7 +206,7 @@ class GraphProblem(ABC):
             f.write("EDGE_WEIGHT_SECTION\n")
 
             # Write upper triangle
-            for i in range(self.n_nodes):
+            for i in range(self.n_nodes-1):
 
                 row_start = self.graph.indptr[i]
                 row_end = self.graph.indptr[i+1]
@@ -210,15 +214,16 @@ class GraphProblem(ABC):
                 values = self.graph.data[row_start:row_end]
                 row_dict = dict(zip(cols, values))
 
-                for j in range(i + 1, self.n_nodes):
-                    f.write(int(row_dict.get(j, 9999)))
-
-                f.write("\n")
+                # Create rows like: 1 9999 1 1 9999
+                row_entries = [
+                    str(int(row_dict.get(j, 9999))) for j in range(i + 1, self.n_nodes)
+                ]
+                f.write(" ".join(row_entries) + "\n")
 
             f.write("EOF\n")
 
 
-    def to_mtx_file(self, path_to_file: str, comments: list[str]):
+    def _to_mtx_file(self, path_to_file: str, comments: list[str] = None):
         """Writes the graph problem to a file in matrix market format.
 
         Creates the file, if necessary.
@@ -254,10 +259,11 @@ class GraphProblem(ABC):
 
             f.write("%%MatrixMarket matrix coordinate pattern symmetric\n")
 
+            comments = comments or []
             for comment in comments:
                 f.write(f"%%{comment}\n")
 
-            f.write(f"%%density: {self.graph_density}")
+            f.write(f"%%density: {self.graph_density}\n")
 
             # Coo format for more efficient upper triangle retrieval
             graph_coo = self.graph.tocoo()
