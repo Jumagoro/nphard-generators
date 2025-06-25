@@ -8,6 +8,13 @@ Typical usage example:
     n_edges = calculate_edge_count(graph)
 
 """
+__all__ = [
+    "calculate_edge_count",
+    "calculate_max_edge_count",
+    "calculate_graph_density",
+    "calculate_available_verticies",
+    "GraphProblem"
+]
 
 from abc import ABC, abstractmethod
 import os
@@ -28,6 +35,8 @@ def calculate_edge_count(graph: csr_array):
     Args:
         graph: An graph is csr_array format.
     """
+    assert_is_square_matrix(graph)
+
     return int(graph.nnz/2)
 
 
@@ -39,9 +48,10 @@ def calculate_max_edge_count(graph: csr_array):
     Args:
         graph: An graph is csr_array format.
     """
-    n_total_edges = graph.shape[0] * graph.shape[1]
-    n_diagonal = min(graph.shape[0], graph.shape[1])
-    return (n_total_edges - n_diagonal)/2
+    assert_is_square_matrix(graph)
+
+    n_total_edges = graph.shape[0]**2
+    return (n_total_edges - graph.shape[0])/2
 
 
 def calculate_graph_density(graph: csr_array):
@@ -53,7 +63,13 @@ def calculate_graph_density(graph: csr_array):
     Args:
         graph: An graph is csr_array format.
     """
+    assert_is_square_matrix(graph)
+
     n_edges = calculate_edge_count(graph)
+
+    if n_edges == 0:
+        return 0
+
     n_edges_max = calculate_max_edge_count(graph)
     return n_edges / n_edges_max
 
@@ -67,8 +83,19 @@ def calculate_available_verticies(graph: csr_array):
     Returns:
         A numpy array with elements [0, 1, ..., n-1].
     """
-    n_nodes = max(graph.shape[0], graph.shape[1])
-    return np.ndarray(list(range(0, n_nodes)))
+    assert_is_square_matrix(graph)
+
+    n_nodes = min(graph.shape[0], graph.shape[1])
+    return np.array(list(range(0, n_nodes)))
+
+
+def assert_is_square_matrix(graph):
+    """Raises ValueError if the graph is not a square matrix."""
+    if graph.shape[0] != graph.shape[1]:
+        raise ValueError(
+            f"Expecting graph matrix to be square. "
+            f"Found {graph.shape[0]}x{graph.shape[1]}"
+        )
 
 
 class GraphProblem(ABC):
@@ -89,9 +116,10 @@ class GraphProblem(ABC):
 
         if graph.shape[0] != graph.shape[1]:
             raise ValueError("Graph must be square: expected equal number of rows and columns")
-        
+
         if (graph != graph.T).nnz != 0:
-            raise ValueError("Graph must be symmetric: adjacency matrix is not equal to its transpose.")
+            raise ValueError(
+                "Graph must be symmetric: adjacency matrix is not equal to its transpose.")
 
         self._graph = graph
         self._n_nodes = graph.shape[0]
@@ -158,13 +186,12 @@ class GraphProblem(ABC):
         """
 
         dir_name = os.path.dirname(path_to_file) or "./"
-        file_name = os.path.basename(path_to_file)
-
         os.makedirs(os.path.dirname(dir_name), exist_ok=True)
 
-        comments_str = ";".join(comments)   # Results in comment1;comment2;...
-
         with open(path_to_file, "w", encoding="ascii") as f:
+
+            file_name = os.path.basename(path_to_file)
+            comments_str = ";".join(comments)   # Results in comment1;comment2;...
 
             f.write(f"NAME: {file_name}\n")
             f.write(f"COMMENT: density={self.graph_density};{comments_str}\n")
@@ -174,7 +201,22 @@ class GraphProblem(ABC):
             f.write("EDGE_WEIGHT_FORMAT: UPPER_ROW\n")
             f.write("EDGE_WEIGHT_SECTION\n")
 
-            # TODO: Write upper rows
+            # Write upper triangle
+            for i in range(self.n_nodes):
+
+                row_start = self.graph.indptr[i]
+                row_end = self.graph.indptr[i+1]
+                cols = self.graph.indices[row_start:row_end]
+                values = self.graph.data[row_start:row_end]
+                row_dict = dict(zip(cols, values))
+
+                for j in range(i + 1, self.n_nodes):
+                    f.write(int(row_dict.get(j, 9999)))
+
+                f.write("\n")
+
+            f.write("EOF\n")
+
 
     def to_mtx_file(self, path_to_file: str, comments: list[str]):
         """Writes the graph problem to a file in matrix market format.
@@ -217,7 +259,8 @@ class GraphProblem(ABC):
 
             f.write(f"%%density: {self.graph_density}")
 
-            graph_coo = self.graph.tocoo()   # Coo format is used to efficiently retrieve upper triangle
+            # Coo format for more efficient upper triangle retrieval
+            graph_coo = self.graph.tocoo()
 
             # Filter for upper triangle (i <= j)
             mask = graph_coo.row <= graph_coo.col
