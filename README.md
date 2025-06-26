@@ -7,14 +7,17 @@ For more details, see [bachelorarbeit]
 ## Installation
 Ensure you have a valid python installation running, e.g. Python 3.11
 
-### Installing for usage:
+### Install as package from TestPyPi
+`pip install --index-url https://test.pypi.org/simple/ nphard-generators`
+or
+`pip install --upgrade --index-url https://test.pypi.org/simple/ nphard-generators`
+
+### Installing local for usage:
 `pip install -e .` Installs nphard-generators itself as well as relevant libraries such as numpy, etc.
 
-### Installing for development:
+### Installing local for development:
 `pip install -e .[dev]` Installs relevant libraries as well as pytest, etc.
 
-### Install from TestPyPi
-`pip install --index-url https://test.pypi.org/simple/nphard-generators`
 
 ## Packaging
 
