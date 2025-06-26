@@ -1,11 +1,11 @@
-"""Tests the mc_problem module"""
+"""Tests a HCProblem instance"""
 import tempfile
 from pathlib import Path
 
 import numpy as np
 from scipy.sparse import csr_array
 
-from nphard_generators.types.hc_problem import HCProblem
+from nphard_generators.types import HCProblem
 
 
 def test_to_file_creates_valid_tsp_file():

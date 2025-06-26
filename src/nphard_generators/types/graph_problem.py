@@ -1,5 +1,7 @@
 """Contains functions and a base class relevant to every basic graph problem.
 
+A graph is always represented as a square (sparse) matrix.
+
 The module provides methods for counting edges, calculating density
 and a basic GraphProblem class that can be inherited.
 
@@ -117,12 +119,11 @@ class GraphProblem(ABC):
         if not isinstance(graph, csr_array):
             raise TypeError("Input must be a scipy.sparse.csr_array.")
 
-        if graph.shape[0] != graph.shape[1]:
-            raise ValueError("Graph must be square: expected equal number of rows and columns")
+        assert_is_square_matrix(graph)
 
         if (graph != graph.T).nnz != 0:
             raise ValueError(
-                "Graph must be symmetric: adjacency matrix is not equal to its transpose.")
+                "Graph must be undirected: adjacency matrix is not equal to its transpose.")
 
         self._graph = graph
         self._n_nodes = graph.shape[0]
@@ -164,6 +165,10 @@ class GraphProblem(ABC):
         """Writes the problem instance to a file on the given path.
         
         Subclasses need to specify wheather they call to_tsp_file, to_mtx_file or other.
+        Provide comments without file specific format, conversion will be automatically done.
+        E.g. Provide: "density: 0.2"
+        -> mtx: %%density: 0.2
+        -> tsp: COMMENT: density: 0.2
 
         Args:
             path_to_file: Path to the file to write into

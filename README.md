@@ -14,7 +14,7 @@ Ensure you have a valid python installation running, e.g. Python 3.11
 `pip install -e .[dev]` Installs relevant libraries as well as pytest, etc.
 
 ### Install from TestPyPi
-`pip install --index-url https://test.pypi.org/simple/ nphard-generators`
+`pip install --index-url https://test.pypi.org/simple/nphard-generators`
 
 ## Packaging
 
