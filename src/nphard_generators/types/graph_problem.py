@@ -15,9 +15,11 @@ Typical usage example:
 
 __all__ = [
     "calculate_edge_count",
-    "calculate_max_edge_count",
+    "calculate_max_edge_count_for_graph",
+    "calculate_max_edge_count_for_n_nodes",
     "calculate_graph_density",
     "calculate_available_verticies",
+    "assert_is_square_matrix",
     "GraphProblem"
 ]
 
@@ -45,7 +47,7 @@ def calculate_edge_count(graph: csr_array):
     return int(graph.nnz/2)
 
 
-def calculate_max_edge_count(graph: csr_array):
+def calculate_max_edge_count_for_graph(graph: csr_array):
     """Returns the maximum number of edges for the given graph.
 
     Edges from a node to itself are not considered.
@@ -55,8 +57,16 @@ def calculate_max_edge_count(graph: csr_array):
     """
     assert_is_square_matrix(graph)
 
-    n_total_edges = graph.shape[0]**2
-    return (n_total_edges - graph.shape[0])/2
+    return calculate_max_edge_count_for_n_nodes(graph.shape[0])
+
+
+def calculate_max_edge_count_for_n_nodes(n_nodes: int):
+    """Returns the maximum number of edges for the node count.
+
+    Edges from a node to itself are not considered.
+    """
+    n_total_edges = n_nodes**2
+    return (n_total_edges - n_nodes)/2
 
 
 def calculate_graph_density(graph: csr_array):
@@ -75,7 +85,7 @@ def calculate_graph_density(graph: csr_array):
     if n_edges == 0:
         return 0
 
-    n_edges_max = calculate_max_edge_count(graph)
+    n_edges_max = calculate_max_edge_count_for_graph(graph)
     return n_edges / n_edges_max
 
 
@@ -117,7 +127,7 @@ class GraphProblem(ABC):
     def __init__(self, graph: csr_array):
 
         if not isinstance(graph, csr_array):
-            raise TypeError("Input must be a scipy.sparse.csr_array.")
+            raise TypeError(f"Input must be a scipy.sparse.csr_array. Found {type(graph)}.")
 
         assert_is_square_matrix(graph)
 

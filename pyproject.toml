@@ -4,9 +4,9 @@ build-backend = "hatchling.build"
 
 [project]
 name = "nphard-generators"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
-  { name="Gordian Hunecke", email="gordian.hunecke@campus.lmu.de" },
+  { name="Gordian Hunecke", email="gogoh60@gmail.com" },
 ]
 description = "Contains generators for np hard problems with known solution."
 readme = "README.md"

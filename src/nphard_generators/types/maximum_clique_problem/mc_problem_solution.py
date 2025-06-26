@@ -5,7 +5,12 @@ Typical usage example:
     problem = MCProblemSolution(graph, [0,1,2]) # Maximum-clique are nodes 0,1 and 2
     problem.to_file(path, [])
 """
+
 __all__ = [
+    "assert_is_np_int_array",
+    "assert_is_subset",
+    "get_np_array_incremented",
+    "get_np_array_as_string",
     "MCProblemSolution"
 ]
 
