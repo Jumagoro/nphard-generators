@@ -29,4 +29,3 @@ class HCPRandomFactory(RandomFactory):
     def to_problem(self) -> HCProblem:
         """Creates a HCProblem out of this factory."""
         return HCProblem(self._get_final_graph())
-
