@@ -37,7 +37,8 @@ class MCPCFatFactory(GraphFactory):
 
         Berman, P., & Pelc, A. (1990).
         Distributed Fault Diagnosis for Multiprocessor Systems.
-        In *Proceedings of the 20th Annual International Symposium on Fault-Tolerant Computing* (pp. 340-346).
+        In *Proceedings of the 20th Annual International Symposium on Fault-Tolerant Computing*
+        (pp. 340-346).
     """
 
     @staticmethod
@@ -45,7 +46,7 @@ class MCPCFatFactory(GraphFactory):
     def generate_instance(n_nodes: int, c: float) -> MCProblem:
         """Creates a MaxCliqueProblem using the CFat generator."""
         return MCPCFatFactory(n_nodes, c).connect_graph().to_problem()
-    
+
     def __init__(self, n_nodes: int, c: float):
         super().__init__(n_nodes)
 
@@ -82,7 +83,7 @@ class MCPCFatFactory(GraphFactory):
         # At most 3 partitions -> fully connected
         if k<=3:
             return np.array(list(range(self.n_nodes)))
-        
+
         # Max clique is in partition0 and partition1
         max_clique = []
         for i in range(self.n_nodes):

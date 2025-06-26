@@ -26,7 +26,7 @@ class ExampleFactory(GraphFactory):
     def generate_instance(n_nodes: int, density: float) -> MCProblem:
         """Creates a MaxCliqueProblem using a randomly connected graph."""
         return ExampleFactory(n_nodes, density).connect_graph().to_problem()
-    
+
     def __init__(self, n_nodes: int, density: float):
         super().__init__(n_nodes)
 
