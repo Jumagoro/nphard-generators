@@ -8,7 +8,7 @@ from nphard_generators.types.graph_problem import (
     calculate_available_verticies,
     calculate_edge_count,
     calculate_graph_density,
-    calculate_max_edge_count
+    calculate_max_edge_count_for_graph,
 )
 
 
@@ -56,13 +56,13 @@ class TestCalculateMaxEdgeCount:
     def test_various_shapes(self, shape, expected):
         """Test some shapes with expected max edge count"""
         graph = csr_array(shape)
-        assert calculate_max_edge_count(graph) == expected
+        assert calculate_max_edge_count_for_graph(graph) == expected
 
     def test_raises_error_on_non_square(self):
         """Test with a non square shapes and expect error"""
         graph = csr_array((2, 4))
         with pytest.raises(ValueError):
-            calculate_max_edge_count(graph)
+            calculate_max_edge_count_for_graph(graph)
 
 
 class TestCalculateGraphDensity:

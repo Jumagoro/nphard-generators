@@ -7,8 +7,9 @@ __all__ = [
     "MCPRandomFactory"
 ]
 
-from nphard_generators import RandomFactory
-from nphard_generators.types import MCProblem
+
+from nphard_generators.random_factory import RandomFactory
+from nphard_generators.types.maximum_clique_problem.mc_problem import MCProblem
 
 
 class MCPRandomFactory(RandomFactory):

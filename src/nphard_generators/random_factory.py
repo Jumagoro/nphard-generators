@@ -13,9 +13,8 @@ __all__ = [
 from abc import abstractmethod
 import random
 
-from nphard_generators import GraphFactory
-from nphard_generators.graph_factory import assert_density_valid
-from nphard_generators.types import GraphProblem
+from nphard_generators.graph_factory import GraphFactory, assert_density_valid
+from nphard_generators.types.graph_problem import GraphProblem
 
 
 class RandomFactory(GraphFactory):

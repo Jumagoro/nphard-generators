@@ -7,8 +7,9 @@ __all__ = [
     "HCPRandomFactory"
 ]
 
-from nphard_generators import RandomFactory
-from nphard_generators.types import HCProblem
+
+from nphard_generators.random_factory import RandomFactory
+from nphard_generators.types.hamiltonian_cycle_problem.hc_problem import HCProblem
 
 
 class HCPRandomFactory(RandomFactory):

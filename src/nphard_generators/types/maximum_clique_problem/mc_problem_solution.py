@@ -17,7 +17,9 @@ __all__ = [
 import numpy as np
 from scipy.sparse import csr_array
 
-from nphard_generators.types import MCProblemSimpleSolution
+from nphard_generators.types.maximum_clique_problem.mc_problem_simple_solution import (
+    MCProblemSimpleSolution
+)
 
 
 def assert_is_np_int_array(arr: np.ndarray) -> bool:

@@ -16,13 +16,14 @@ from typing import Self
 from scipy.sparse import lil_matrix, csr_array
 import numpy as np
 
-from nphard_generators.types import GraphProblem
+from nphard_generators.types.graph_problem import GraphProblem
+
 
 def assert_density_valid(density: float):
     """Raises ValueError if the given density is invalid."""
     if not isinstance(density, float):
         raise ValueError(f"Expecting density to be a float. Found {type(density)}")
-    
+
     if density < 0.0:
         raise ValueError(f"Expecting density to be >=0.0. Is {density}")
 

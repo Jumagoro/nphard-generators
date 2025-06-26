@@ -11,7 +11,7 @@ __all__ = [
 
 from scipy.sparse import csr_array
 
-from nphard_generators.types import MCProblem
+from nphard_generators.types.maximum_clique_problem.mc_problem import MCProblem
 
 
 class MCProblemSimpleSolution(MCProblem):

@@ -11,7 +11,7 @@ __all__ = [
 
 from scipy.sparse import csr_array
 
-from nphard_generators.types import HCProblem
+from nphard_generators.types.hamiltonian_cycle_problem.hc_problem import HCProblem
 
 
 class HCProblemSolution(HCProblem):

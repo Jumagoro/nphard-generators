@@ -28,7 +28,8 @@ dev = [
   "pytest",
   "pylint",
   "build",
-  "twine"
+  "twine",
+  "pytest-rerunfailures"
 ]
 
 [project.urls]

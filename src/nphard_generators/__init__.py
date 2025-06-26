@@ -11,7 +11,9 @@ __all__ = [
     "hamiltonian_cycle_problem",
     "maximum_clique_problem",
     "types",
+
     "GraphFactory",
+
     "RandomFactory",
     "MCPRandomFactory",
     "HCPRandomFactory"
