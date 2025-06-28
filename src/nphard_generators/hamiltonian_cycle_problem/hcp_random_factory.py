@@ -1,6 +1,9 @@
 """Contains a class to generate a random Hamiltonian-Cycle-Problem.
 
 A graph is always represented as a square (sparse) matrix.
+
+Usage:
+    problem = HCPRandomFactory.generate_instance(...)
 """
 
 __all__ = [

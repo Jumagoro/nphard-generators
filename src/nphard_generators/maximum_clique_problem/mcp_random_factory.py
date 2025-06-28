@@ -1,6 +1,9 @@
 """Contains a class to generate a random Maximum-Clique-Problem.
 
 A graph is always represented as a square (sparse) matrix.
+
+Usage:
+    `problem = MCPRandomFactory.generate_instance(...)`
 """
 
 __all__ = [
@@ -18,7 +21,7 @@ class MCPRandomFactory(RandomFactory):
     Usage:
 
         for a random graph with 20 nodes and a density of 0.1:
-        MCPRandomFactory.generateInstance(20, 0.1) 
+        `MCPRandomFactory.generateInstance(20, 0.1)`
     """
 
     @staticmethod

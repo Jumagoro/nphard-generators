@@ -1,6 +1,9 @@
 """Generates a Maximum-Clique-Problem using CFat graph construction.
 
 A graph is always represented as a square (sparse) matrix.
+
+Usage:
+    problem = MCPCFatFactory.generate_instance(...)
 """
 
 __all__ = [
@@ -12,7 +15,6 @@ from math import floor, log
 
 import numpy as np
 from nphard_generators.graph_factory import GraphFactory
-from nphard_generators.types.maximum_clique_problem.mc_problem import MCProblem
 from nphard_generators.types.maximum_clique_problem.mc_problem_solution import MCProblemSolution
 
 
@@ -20,7 +22,7 @@ class MCPCFatFactory(GraphFactory):
     """Generates graphs for the maximum-clique-problem using the CFat algorithm.
 
     Implements the algorithm described by Hasselberg et al. (1993) for generating
-    test cases fir the maximum clique problem.
+    test cases for the maximum clique problem.
 
     The algorithm is based on an idea orginally proposed by Berman und Pelc (1990) in
     the context of multiprocessor fault detection.

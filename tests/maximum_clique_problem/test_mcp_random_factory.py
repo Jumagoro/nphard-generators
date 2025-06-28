@@ -38,3 +38,11 @@ class TestMCPRandomFactory:
 
         assert mcp_random.n_edges == pytest.approx(
             n_edges_should, abs=n_edges_should*0.05),"n_edges incorrect"
+
+    def test_invalid_density_raises_error(self):
+        """Tests if a error is raised when a invalid density is given."""
+        n = 20
+        d = -0.1
+
+        with pytest.raises(ValueError):
+            MCPRandomFactory.generate_instance(n, d)
