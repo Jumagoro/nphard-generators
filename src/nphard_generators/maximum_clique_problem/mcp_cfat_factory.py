@@ -43,7 +43,7 @@ class MCPCFatFactory(GraphFactory):
 
     @staticmethod
     # pylint: disable=arguments-differ
-    def generate_instance(n_nodes: int, c: float) -> MCProblem:
+    def generate_instance(n_nodes: int, c: float) -> MCProblemSolution:
         """Creates a MaxCliqueProblem using the CFat generator."""
         return MCPCFatFactory(n_nodes, c).connect_graph().to_problem()
 
@@ -53,7 +53,7 @@ class MCPCFatFactory(GraphFactory):
         self._c = c
         self._max_clique = self._calculate_max_clique()
 
-    def to_problem(self) -> MCProblem:
+    def to_problem(self) -> MCProblemSolution:
         """Creates a MCProblemSolution out of this factory."""
         return MCProblemSolution(self._get_final_graph(), self._max_clique)
 
@@ -64,6 +64,7 @@ class MCPCFatFactory(GraphFactory):
         """
 
         k = self._calculate_k(self._c)
+        print(k)
 
         for vert1 in range(0, self.n_nodes-1):
             partition_of_1 = vert1 % k
@@ -94,5 +95,8 @@ class MCPCFatFactory(GraphFactory):
 
 
     def _calculate_k(self, c: float):
+        print(c)
+        print(self.n_nodes)
+        print(c*log(self.n_nodes))
         k = floor(self.n_nodes / (c*log(self.n_nodes)))
         return max(k, 1)
