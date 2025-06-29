@@ -7,7 +7,8 @@ The module provides a basic GraphFactory class that can be inherited.
 
 __all__ = [
     "GraphFactory",
-    "assert_density_valid"
+    "assert_density_valid",
+    "assert_n_max_clique_valid"
 ]
 
 from abc import ABC, abstractmethod
@@ -29,6 +30,18 @@ def assert_density_valid(density: float):
 
     if density > 1.0:
         raise ValueError(f"Expecting density to be <=1.0. Is {density}")
+
+
+def assert_n_max_clique_valid(n_max_clique: int, n_nodes: int):
+    """Raises ValueError if the given n_max_clique is invalid."""
+    if not isinstance(n_max_clique, int):
+        raise ValueError(f"Expecting n_max_clique to be a int. Found {type(n_max_clique)}")
+
+    if n_max_clique < 0:
+        raise ValueError(f"Expecting n_max_clique to be >=0. Is {n_max_clique}")
+
+    if n_max_clique > n_nodes:
+        raise ValueError(f"Expecting n_max_clique to be <=n_nodes. Is {n_max_clique}")
 
 
 class GraphFactory(ABC):

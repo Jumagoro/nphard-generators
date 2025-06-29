@@ -15,7 +15,7 @@ import random
 import numpy as np
 import scipy.special as scp
 
-from nphard_generators.graph_factory import GraphFactory, assert_density_valid
+from nphard_generators.graph_factory import GraphFactory, assert_density_valid, assert_n_max_clique_valid
 from nphard_generators.types.graph_problem import calculate_max_edge_count_for_n_nodes
 from nphard_generators.types.maximum_clique_problem.mc_problem_solution import MCProblemSolution
 
@@ -35,20 +35,21 @@ class MCPSynA1Factory(GraphFactory):
 
     @staticmethod
     # pylint: disable=arguments-differ
-    def generate_instance(n_nodes: int, density: float, clique_size: int) -> MCProblemSolution:
+    def generate_instance(n_nodes: int, density: float, n_max_clique: int) -> MCProblemSolution:
         """Creates a MaxCliqueProblem using the SynA1 generator."""
-        return MCPSynA1Factory(n_nodes, density, clique_size).connect_graph().to_problem()
+        return MCPSynA1Factory(n_nodes, density, n_max_clique).connect_graph().to_problem()
 
-    def __init__(self, n_nodes: int, density: float, clique_size: int):
+    def __init__(self, n_nodes: int, density: float, n_max_clique: int):
         super().__init__(n_nodes)
 
         assert_density_valid(density)
         self._density = density
 
-        self._n_max_clique = clique_size
+        assert_n_max_clique_valid(n_max_clique, n_nodes)
+        self._n_max_clique = n_max_clique
 
         # Generates a random max_clique
-        self._max_clique = np.random.choice(n_nodes, clique_size, replace=False)
+        self._max_clique = np.random.choice(n_nodes, n_max_clique, replace=False)
 
     def to_problem(self) -> MCProblemSolution:
         """Creates a MCProblemSolution out of this factory."""

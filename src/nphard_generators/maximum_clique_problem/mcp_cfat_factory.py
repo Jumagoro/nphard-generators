@@ -66,7 +66,6 @@ class MCPCFatFactory(GraphFactory):
         """
 
         k = self._calculate_k(self._c)
-        print(k)
 
         for vert1 in range(0, self.n_nodes-1):
             partition_of_1 = vert1 % k
@@ -97,8 +96,5 @@ class MCPCFatFactory(GraphFactory):
 
 
     def _calculate_k(self, c: float):
-        print(c)
-        print(self.n_nodes)
-        print(c*log(self.n_nodes))
         k = floor(self.n_nodes / (c*log(self.n_nodes)))
         return max(k, 1)
