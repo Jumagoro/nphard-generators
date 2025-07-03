@@ -9,6 +9,7 @@ from .hamiltonian_cycle_problem.hcp_random_factory import HCPRandomFactory
 
 from .maximum_clique_problem.mcp_cfat_factory import MCPCFatFactory
 from .maximum_clique_problem.mcp_syn_a1_factory import MCPSynA1Factory
+from .maximum_clique_problem.mcp_sanchis_factory import MCPSanchisFactory
 
 __all__ = [
     "hamiltonian_cycle_problem",
@@ -22,5 +23,6 @@ __all__ = [
     "HCPRandomFactory",
 
     "MCPCFatFactory",
-    "MCPSynA1Factory"
+    "MCPSynA1Factory",
+    "MCPSanchisFactory"
 ]

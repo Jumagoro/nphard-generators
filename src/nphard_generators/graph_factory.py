@@ -118,11 +118,11 @@ class GraphFactory(ABC):
         This method should be overriden by subclasses implementing their own logic.
         """
 
-    def _get_final_graph(self):
+    def _get_final_graph(self) -> csr_array:
         """Creates a more calculation efficient csr_array from the editable graph"""
         return csr_array(self.graph_editable)
 
-    def _get_final_graph_complement(self):
+    def _get_final_graph_complement(self) -> csr_array:
         """Creates a more calculation efficient csr_array from the editable graph's complement"""
         final_graph = self._get_final_graph()
 
@@ -132,6 +132,7 @@ class GraphFactory(ABC):
         # XOR: 1 where only one of A or all_edges has an edge -> complement
         complement = all_edges - final_graph
         complement.eliminate_zeros()
+        return complement
 
     def _connect_edge(self, node_a: int, node_b: int):
         self.graph_editable[node_a,node_b] = True

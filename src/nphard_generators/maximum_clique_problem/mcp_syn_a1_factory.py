@@ -90,7 +90,11 @@ class MCPSynA1Factory(GraphFactory):
 
                 if n_added_edges >= max_additional_edges:
                     return
+                
+                if len(possible_others) <= 0:
+                    continue
 
                 random_other_node = random.choice(possible_others)
                 self._connect_edge(current_node, random_other_node)
+                possible_others.remove(random_other_node)
                 n_added_edges += 1
