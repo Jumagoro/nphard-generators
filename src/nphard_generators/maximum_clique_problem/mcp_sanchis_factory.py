@@ -34,7 +34,7 @@ class MCPSanchisFactory(GraphFactory):
     Usage:
 
         For a Sanchis graph with 20 nodes, density 0.4 and hidden maximum clique of size 4:
-        MCPCFatFactory.generateInstance(20, 0.4, 4)
+        MCPCSanchisFactory.generateInstance(20, 0.4, 4)
 
     References:
         Hasselberg, J., Pardalos, P. M., & Vairaktarakis, G. (1993).
