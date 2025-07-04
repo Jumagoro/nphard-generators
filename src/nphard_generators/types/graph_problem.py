@@ -20,6 +20,10 @@ __all__ = [
     "calculate_graph_density",
     "calculate_available_verticies",
     "assert_is_square_matrix",
+    "assert_is_np_int_array",
+    "assert_is_subset",
+    "get_np_array_incremented",
+    "get_np_array_as_string",
     "GraphProblem"
 ]
 
@@ -111,6 +115,38 @@ def assert_is_square_matrix(graph):
             f"Expecting graph matrix to be square. "
             f"Found {graph.shape[0]}x{graph.shape[1]}"
         )
+
+
+def assert_is_np_int_array(arr: np.ndarray) -> bool:
+    """Raises ValueError if the array is not a 1D numpy int array."""
+
+    if not isinstance(arr, np.ndarray):
+        raise ValueError(f"Array must be a numpy array. Found {type(arr)}.")
+
+    if not arr.ndim == 1:
+        raise ValueError(f"Array must be one dimensional. Found {arr.ndim} dimensions.")
+
+    if not np.issubdtype(arr.dtype, np.integer):
+        raise ValueError(f"Array must contain integers. Found {arr.dtype}.")
+
+
+def assert_is_subset(subset: np.ndarray, superset: np.ndarray) -> bool:
+    """Raises ValueError if the subset array is not a subset of the superset array."""
+
+    if not all(node in superset for node in subset):
+        raise ValueError(f"Given subset {subset} not a subset of {superset}.")
+
+
+def get_np_array_incremented(arr: np.ndarray, increment: int):
+    """Increments each value in arr by increment and returns an incremented copy."""
+    arr_incremented = arr.copy()
+    arr_incremented += increment
+    return arr_incremented
+
+
+def get_np_array_as_string(arr: np.ndarray):
+    """Converts [1,2,3] to "[1,2,3]"."""
+    return np.array2string(arr,separator=',',max_line_width=np.inf).replace(' ','')
 
 
 class GraphProblem(ABC):

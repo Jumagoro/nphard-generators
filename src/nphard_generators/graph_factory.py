@@ -31,6 +31,13 @@ def assert_density_valid(density: float):
     if density > 1.0:
         raise ValueError(f"Expecting density to be <=1.0. Is {density}")
 
+def assert_n_nodes_valid(n_nodes: int):
+    """Raises ValueError if the given n_nodes is invalid."""
+    if not isinstance(n_nodes, int):
+        raise ValueError(f"Expecting n_nodes to be an int. Found {type(n_nodes)}")
+
+    if n_nodes < 1:
+        raise ValueError(f"Expecting n_nodes to be >=1. Is {n_nodes}")
 
 def assert_n_max_clique_valid(n_max_clique: int, n_nodes: int):
     """Raises ValueError if the given n_max_clique is invalid."""
@@ -74,7 +81,7 @@ class GraphFactory(ABC):
 
     def __init__(self, n_nodes: int):
 
-        assert n_nodes >= 0, f"n_nodes must be >= 0. Found {n_nodes}"
+        assert_n_nodes_valid(n_nodes)
 
         self._n_nodes = n_nodes
         self._graph_editable = lil_matrix((n_nodes, n_nodes), dtype=bool)

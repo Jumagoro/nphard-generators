@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 from scipy.sparse import csr_array
 
-from nphard_generators.types import HCProblemSolution
+from nphard_generators.types import HCProblemSimpleSolution
 
 
 def test_to_file_creates_valid_tsp_file():
@@ -19,7 +19,7 @@ def test_to_file_creates_valid_tsp_file():
     data = np.ones(len(row), dtype=bool)
     graph = csr_array((data, (row, col)), shape=(3, 3))
 
-    hc_problem_solution = HCProblemSolution(graph, False)
+    hc_problem_solution = HCProblemSimpleSolution(graph, False)
 
     with tempfile.TemporaryDirectory() as tmpdir:
         path = Path(tmpdir) / "test.tsp"

@@ -7,7 +7,7 @@ from .maximum_clique_problem.mc_problem_simple_solution import MCProblemSimpleSo
 from .maximum_clique_problem.mc_problem_solution import MCProblemSolution
 
 from .hamiltonian_cycle_problem.hc_problem import HCProblem
-from .hamiltonian_cycle_problem.hc_problem_solution import HCProblemSolution
+from .hamiltonian_cycle_problem.hc_problem_simple_solution import HCProblemSimpleSolution
 
 __all__ = [
     "GraphProblem",
@@ -17,5 +17,5 @@ __all__ = [
     "MCProblemSolution",
 
     "HCProblem",
-    "HCProblemSolution"
+    "HCProblemSimpleSolution"
 ]
