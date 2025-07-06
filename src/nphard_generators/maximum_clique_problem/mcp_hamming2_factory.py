@@ -51,22 +51,21 @@ class MCPHamming2Factory(GraphFactory):
 
     def to_problem(self) -> MCProblemSolution:
         """Creates a MCProblemSolution out of this factory."""
-        return MCProblemSolution(self._get_final_graph_complement(), self._max_clique)
+        return MCProblemSolution(self._get_final_graph(), self._max_clique)
 
     def _connect_graph_logic(self):
         """Connects the graph using the hamming distance."""
 
-        word_size = ceil(log2(self.n_nodes))
-
         for vert1 in range(0, self.n_nodes-1):
             for vert2 in range(vert1+1, self.n_nodes):
-                dist = self._calculate_hamming_distance(vert1, vert2, word_size)
+                dist = self._calculate_hamming_distance(vert1, vert2)
 
-            if dist >= 2:
-                self._connect_edge(vert1, vert2)
+                if dist >= 2:
+                    self._connect_edge(vert1, vert2)
 
-    def _calculate_hamming_distance(self, a: int, b: int, word_size: int):
+    def _calculate_hamming_distance(self, a: int, b: int):
         """Calculates the hamming distance of a and b for word_size bits"""
+        word_size = ceil(log2(max(a, b)+1))   # +1 because counting starts with 0
         dist = 0
 
         for pos in range(0, word_size):

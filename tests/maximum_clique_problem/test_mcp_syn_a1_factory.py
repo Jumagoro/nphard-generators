@@ -22,6 +22,9 @@ class TestMCPSynA1Factory:
         assert syna1_problem.graph_density == pytest.approx(d, abs=0.05), "density incorrect"
         assert syna1_problem.n_max_clique == n_max_clique, "n_max_clique incorrect"
 
+        # TODO: Add test to check if edges of max_clique are set
+        # for syna1_problem.max_clique
+
 
     def test_invalid_density_raises_error(self):
         """Tests if a error is raised when a invalid density is given."""

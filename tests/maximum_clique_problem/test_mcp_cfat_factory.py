@@ -12,13 +12,13 @@ from nphard_generators.types import MCProblemSolution
 class TestMCPRandomFactory:
     """Tests for the MCPCFatFactory."""
 
-    @pytest.mark.parametrize("n, c, max_clique_expected", [
-        (2, 1, np.array([0,1])),
-        (2, 2, np.array([0,1])),
-        (10, 0.86, np.array([0,1,5,6])),
-        (14, 0.88, np.array([0,1,6,7,12,13])),
+    @pytest.mark.parametrize("n, c, max_clique_expected, edges", [
+        (2, 1, np.array([0,1]), [(0,1)]),
+        (2, 2, np.array([0,1]), [(0,1)]),
+        (10, 0.86, np.array([0,1,5,6]), [(0,1), (5,6)]),
+        (14, 0.88, np.array([0,1,6,7,12,13]), [(0,1), (1,6), (12,13)]),
     ])
-    def test_various_shapes(self, n, c, max_clique_expected):
+    def test_various_shapes(self, n, c, max_clique_expected, edges):
         """Test some configurations for expected max_clique"""
         cfat_problem = MCPCFatFactory.generate_instance(n, c)
 
@@ -28,6 +28,9 @@ class TestMCPRandomFactory:
         npt.assert_array_equal(
             cfat_problem.max_clique, max_clique_expected, "max_clique differs from expected."
         )
+
+        for (u,v) in edges:
+            assert cfat_problem.has_edge(u, v)
 
 
     def test_invalid_c_value(self):

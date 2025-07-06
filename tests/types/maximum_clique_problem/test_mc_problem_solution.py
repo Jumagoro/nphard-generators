@@ -9,12 +9,7 @@ import numpy.testing as npt
 from scipy.sparse import csr_array
 
 from nphard_generators.types import MCProblemSolution
-from nphard_generators.types.maximum_clique_problem.mc_problem_solution import (
-    assert_is_np_int_array,
-    assert_is_subset,
-    get_np_array_as_string,
-    get_np_array_incremented
-)
+from nphard_generators.types.graph_problem import assert_is_np_int_array, assert_is_subset, get_np_array_as_string, get_np_array_incremented
 
 
 class TestAssertIsNPIntArray:
