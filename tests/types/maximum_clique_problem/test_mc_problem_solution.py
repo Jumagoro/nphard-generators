@@ -123,8 +123,9 @@ class TestMCProblemSolution:
             assert "%%src: test" in lines[3]
             assert "%%a: b" in lines[4]
             assert f"%%density: {mc_problem_solution.graph_density}" in lines[5]
+            assert "3 3 3" in lines[6]
 
-            edge_lines = [line for line in lines if not line.startswith("%%")]
+            edge_lines = [line for line in lines if not line.startswith("%%")][1:]
             assert len(edge_lines) == 3
 
             for line in edge_lines:

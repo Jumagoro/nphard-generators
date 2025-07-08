@@ -21,16 +21,16 @@ from nphard_generators.graph_factory import (
 )
 from nphard_generators.types.maximum_clique_problem.mc_problem_solution import MCProblemSolution
 
-def assert_u_valid(u: int):
-    """Raises ValueError if the given u is invalid."""
-    if not isinstance(u, int):
-        raise ValueError(f"Expecting u to be an int. Found {type(u)}")
+def assert_hiding_depth_valid(hiding_depth: int):
+    """Raises ValueError if the given hiding_depth is invalid."""
+    if not isinstance(hiding_depth, int):
+        raise ValueError(f"Expecting hiding_depth to be an int. Found {type(hiding_depth)}")
 
-    if u < 0:
-        raise ValueError(f"Expecting u to be >=0. Is {u}")
+    if hiding_depth < 0:
+        raise ValueError(f"Expecting hiding_depth to be >=0. Is {hiding_depth}")
 
-    if u > 4:
-        raise ValueError(f"Expecting u to be <=4. Is {u}")
+    if hiding_depth > 4:
+        raise ValueError(f"Expecting hiding_depth to be <=4. Is {hiding_depth}")
 
 
 class MCPBrockFactory(GraphFactory):
@@ -56,11 +56,12 @@ class MCPBrockFactory(GraphFactory):
     @staticmethod
     # pylint: disable=arguments-differ
     def generate_instance(
-        n_nodes: int, density: float, n_max_clique: int, u: int)-> MCProblemSolution:
+        n_nodes: int, density: float, n_max_clique: int, hiding_depth: int)-> MCProblemSolution:
         """Creates a MaxCliqueProblem using the brock algorithm."""
-        return MCPBrockFactory(n_nodes, density, n_max_clique, u).connect_graph().to_problem()
+        return MCPBrockFactory(
+            n_nodes, density, n_max_clique, hiding_depth).connect_graph().to_problem()
 
-    def __init__(self, n_nodes: int, density: float, n_max_clique: int, u: int):
+    def __init__(self, n_nodes: int, density: float, n_max_clique: int, hiding_depth: int):
         super().__init__(n_nodes)
 
         assert_density_valid(density)
@@ -69,8 +70,8 @@ class MCPBrockFactory(GraphFactory):
         assert_n_max_clique_valid(n_max_clique, n_nodes)
         self._n_max_clique = n_max_clique
 
-        assert_u_valid(u)
-        self._u = u
+        assert_hiding_depth_valid(hiding_depth)
+        self._u = hiding_depth-1
 
         self._max_clique = np.random.choice(n_nodes, n_max_clique, replace=False)
 
@@ -82,7 +83,7 @@ class MCPBrockFactory(GraphFactory):
         """Connects the graph using the brock algorithm."""
 
         outside_nodes = [v for v in range(0, self.n_nodes) if v not in self._max_clique]
-        (p0, p1) = self.calculate_p0_p1(self.n_nodes, self._density, self._n_max_clique, self._u)
+        (p0, p1) = self._calculate_p0_p1(self.n_nodes, self._density, self._n_max_clique, self._u)
 
         for outside_node in outside_nodes:
 
@@ -103,50 +104,56 @@ class MCPBrockFactory(GraphFactory):
                         d -= 1
                         break
 
-    def calculate_p0_p1(self, n_nodes, density, n_max_clique, u):
+    def _calculate_p0_p1(self, n_nodes, density, n_max_clique, u):
         """Calculates the probability p0 for outside connections and p0 for out-to-in."""
-        p1 = self.calculate_p1(n_nodes, density, n_max_clique, u)
-        p0 = self.calculate_p0(n_nodes, n_max_clique, u, p1)
+        p1 = self._calculate_p1(n_nodes, density, n_max_clique, u)
+        p0 = self._calculate_p0(n_nodes, n_max_clique, u, p1)
         return (p0, p1)
 
-    def calculate_p1(self, n_nodes, density, n_max_clique, u):
-        """Calculates the probability p1 for connections from out to in nodes."""
-        if u == 0:
-            return (density, density)
+    def _calculate_p1(self, n_nodes, density, n_max_clique, u):
+        """Calculates the probability p1 for connections from out to in nodes.
+        
+            u is the amount of correctly identified nodes.
+            The original paper uses an i=u-1. For more clarity, this subtraction is done
+            in the constructor so the classes uses directly u everywhere.
+        """
+        if u == -1:
+            return density
 
-        i = u-1
         epsilon = 1e-12
 
         min_x = density
-        max_x = (1.0 + i * density) / (1.0 + i)
-        if i == 0:
+        max_x = (1.0 + u * density) / (1.0 + u)
+        if u == 0:
             max_x = 0.99
 
-        f_max = self.__func1(max_x, density, n_nodes, n_max_clique, i)
+        f_max = self._p1_function(max_x, density, n_nodes, n_max_clique, u)
 
         if abs(f_max) < epsilon:
             return max_x
         elif f_max < 0:
             raise ValueError("Level of hiding and edge density yield a non-real solution.")
         else:
-            # Use bisection to find root
-            return bisect(
-                self.__func1, min_x, max_x,
-                args=(density, n_nodes, n_max_clique, i), xtol=epsilon
+            # Use bisection to solve f(p1)=0
+            p1 = bisect(
+                self._p1_function, min_x, max_x,
+                args=(density, n_nodes, n_max_clique, u), xtol=epsilon
             )
 
-    def calculate_p0(self, n_nodes, n_max_clique, u, p1):
+            return float(p1)
+
+    def _calculate_p0(self, n, s, u, p1):
         """Calculates the probability p0 for outside connections.
         Requires p1 for calculation.
         """
-        i = u-1
-
-        pr_temp = ((1.0 - p1) ** i) * (n_nodes - n_max_clique)
-        return p1 * (pr_temp - (n_max_clique - i)) / (pr_temp - 1.0)
+        return p1 * ((n-s)*(1-p1)**u-(s-u)) / ((n-s)*(1-p1)**u-1)
 
     # pylint: disable=too-many-arguments
     # pylint: disable=too-many-positional-arguments
-    def __func1(self, x, p, n, s, i):
-        """Naming stems from the original proposal."""
-        f1 = (1.0 - x) ** i
-        return x * f1 * (n - s) - p * ((s - i - 1) + f1 * (n - s))
+    def _p1_function(self, p1, p, n, s, u):
+        """Represents f(p1)=...
+        
+        Goal is: find p1 such that f(p1)=0.
+        Can be solved using a numerical approach.
+        """
+        return (p1-p)*(n-s)*(1-p1)**u - p*(s-u-1)

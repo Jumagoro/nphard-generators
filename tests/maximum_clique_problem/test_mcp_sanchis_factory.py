@@ -23,7 +23,7 @@ class TestMCPRandomFactory:
         assert isinstance(sanchis_problem, MCProblemSolution)
         assert sanchis_problem.n_nodes == n, "n_nodes differs."
         assert sanchis_problem.graph_density == pytest.approx(d, abs=0.05), "density incorrect"
-        
+
         npt.assert_array_equal(
             sanchis_problem.max_clique, max_clique_expected, "max_clique differs from expected."
         )

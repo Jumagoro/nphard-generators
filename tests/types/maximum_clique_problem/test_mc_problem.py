@@ -32,9 +32,10 @@ def test_to_file_creates_valid_mtx_file():
         assert lines[0].startswith("%%MatrixMarket matrix coordinate pattern symmetric")
         assert "%%src: test" in lines[1]
         assert "%%a: b" in lines[2]
-        assert any("%%density:" in line for line in lines)
+        assert "%%density:" in lines[3]
+        assert "3 3 3" in lines[4]
 
-        edge_lines = [line for line in lines if not line.startswith("%%")]
+        edge_lines = [line for line in lines if not line.startswith("%%")][1:]
         assert len(edge_lines) == 3
 
         for line in edge_lines:

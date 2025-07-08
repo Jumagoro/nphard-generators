@@ -240,7 +240,7 @@ class GraphProblem(ABC):
         """
 
         dir_name = os.path.dirname(path_to_file) or "./"
-        os.makedirs(os.path.dirname(dir_name), exist_ok=True)
+        os.makedirs(dir_name, exist_ok=True)
 
         with open(path_to_file, "w", encoding="ascii") as f:
 
@@ -304,7 +304,7 @@ class GraphProblem(ABC):
         """
 
         dir_name = os.path.dirname(path_to_file) or "./"
-        os.makedirs(os.path.dirname(dir_name), exist_ok=True)
+        os.makedirs(dir_name, exist_ok=True)
 
         with open(path_to_file, "w", encoding="ascii") as f:
 
@@ -315,6 +315,8 @@ class GraphProblem(ABC):
                 f.write(f"%%{comment}\n")
 
             f.write(f"%%density: {self.graph_density}\n")
+
+            f.write(f"{self.n_nodes} {self.n_nodes} {self.n_edges}\n")
 
             # Coo format for more efficient upper triangle retrieval
             graph_coo = self.graph.tocoo()

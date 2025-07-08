@@ -11,6 +11,7 @@ from .maximum_clique_problem.mcp_cfat_factory import MCPCFatFactory
 from .maximum_clique_problem.mcp_syn_a1_factory import MCPSynA1Factory
 from .maximum_clique_problem.mcp_sanchis_factory import MCPSanchisFactory
 from .maximum_clique_problem.mcp_hamming2_factory import MCPHamming2Factory
+from .maximum_clique_problem.mcp_brock_factory import MCPBrockFactory
 
 __all__ = [
     "hamiltonian_cycle_problem",
@@ -26,5 +27,6 @@ __all__ = [
     "MCPCFatFactory",
     "MCPSynA1Factory",
     "MCPSanchisFactory",
-    "MCPHamming2Factory"
+    "MCPHamming2Factory",
+    "MCPBrockFactory"
 ]
