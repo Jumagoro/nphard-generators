@@ -9,6 +9,7 @@ from .hamiltonian_cycle_problem.hcp_random_factory import HCPRandomFactory
 
 from .maximum_clique_problem.mcp_cfat_factory import MCPCFatFactory
 from .maximum_clique_problem.mcp_syn_a1_factory import MCPSynA1Factory
+from .maximum_clique_problem.mcp_syn_a3_factory import MCPSynA3Factory
 from .maximum_clique_problem.mcp_sanchis_factory import MCPSanchisFactory
 from .maximum_clique_problem.mcp_hamming2_factory import MCPHamming2Factory
 from .maximum_clique_problem.mcp_hamming3_factory import MCPHamming3Factory
@@ -27,6 +28,7 @@ __all__ = [
 
     "MCPCFatFactory",
     "MCPSynA1Factory",
+    "MCPSynA3Factory",
     "MCPSanchisFactory",
     "MCPHamming2Factory",
     "MCPHamming3Factory",
