@@ -11,6 +11,7 @@ from .maximum_clique_problem.mcp_cfat_factory import MCPCFatFactory
 from .maximum_clique_problem.mcp_syn_a1_factory import MCPSynA1Factory
 from .maximum_clique_problem.mcp_sanchis_factory import MCPSanchisFactory
 from .maximum_clique_problem.mcp_hamming2_factory import MCPHamming2Factory
+from .maximum_clique_problem.mcp_hamming3_factory import MCPHamming3Factory
 from .maximum_clique_problem.mcp_brock_factory import MCPBrockFactory
 
 __all__ = [
@@ -28,5 +29,6 @@ __all__ = [
     "MCPSynA1Factory",
     "MCPSanchisFactory",
     "MCPHamming2Factory",
+    "MCPHamming3Factory",
     "MCPBrockFactory"
 ]

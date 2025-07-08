@@ -15,17 +15,19 @@ from math import ceil, floor, log2
 
 import numpy as np
 from nphard_generators.graph_factory import GraphFactory
+from nphard_generators.maximum_clique_problem.mcp_hamming_factory import MCPHammingFactory
 from nphard_generators.types.maximum_clique_problem.mc_problem_solution import MCProblemSolution
 
 
-class MCPHamming2Factory(GraphFactory):
+class MCPHamming2Factory(MCPHammingFactory):
     """Generates graphs for the maximum-clique-problem using the hamming distance.
 
     Implements the algorithm described by Hasselberg et al. (1993) for generating
     test cases using the hamming distance.
 
-    Edges are always connect when they have a hamming distance of 2 (or more),
-    since it is unclear, if the maximum clique is always known for a distance > 2.
+    Edges are always connect when they have a hamming distance of 2 (or more).
+    The maximum clique is either all nodes with even count of 1s in binary representation
+    or all nodes with an odd count.
 
     Usage:
 
@@ -45,34 +47,13 @@ class MCPHamming2Factory(GraphFactory):
         return MCPHamming2Factory(n_nodes).connect_graph().to_problem()
 
     def __init__(self, n_nodes: int):
-        super().__init__(n_nodes)
+        super().__init__(n_nodes, 2)
 
         self._max_clique = self._calculate_max_clique()
 
     def to_problem(self) -> MCProblemSolution:
         """Creates a MCProblemSolution out of this factory."""
         return MCProblemSolution(self._get_final_graph(), self._max_clique)
-
-    def _connect_graph_logic(self):
-        """Connects the graph using the hamming distance."""
-
-        for vert1 in range(0, self.n_nodes-1):
-            for vert2 in range(vert1+1, self.n_nodes):
-                dist = self._calculate_hamming_distance(vert1, vert2)
-
-                if dist >= 2:
-                    self._connect_edge(vert1, vert2)
-
-    def _calculate_hamming_distance(self, a: int, b: int):
-        """Calculates the hamming distance of a and b for word_size bits"""
-        word_size = ceil(log2(max(a, b)+1))   # +1 because counting starts with 0
-        dist = 0
-
-        for pos in range(0, word_size):
-            if floor(a / 2**pos)%2 != floor(b/2**pos)%2:
-                dist += 1
-
-        return dist
 
     def _calculate_max_clique(self):
         """Calculates the max clique that is either the group
