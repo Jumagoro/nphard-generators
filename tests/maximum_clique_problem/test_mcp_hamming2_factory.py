@@ -1,4 +1,4 @@
-"""Tests a HCProblem instance"""
+"""Tests a MCPHamming2Factory instance"""
 import pytest
 
 import numpy as np
@@ -9,7 +9,7 @@ from nphard_generators import MCPHamming2Factory
 from nphard_generators.types import MCProblemSolution
 
 
-class TestMCPRandomFactory:
+class TestMCPHamming2Factory:
     """Tests for the MCPHamming2Factory."""
 
     @pytest.mark.parametrize("n, max_clique_expected, edges", [

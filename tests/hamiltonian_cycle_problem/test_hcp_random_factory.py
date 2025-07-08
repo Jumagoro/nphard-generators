@@ -1,4 +1,4 @@
-"""Tests a HCProblem instance"""
+"""Tests a HCPRandomFactory instance"""
 import pytest
 
 import numpy as np

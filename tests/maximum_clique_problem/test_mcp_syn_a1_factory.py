@@ -1,4 +1,4 @@
-"""Tests a HCProblem instance"""
+"""Tests a MCPSynA1Factory instance"""
 import pytest
 
 from nphard_generators import MCPSynA1Factory

@@ -65,7 +65,7 @@ class MCPBrockFactory(GraphFactory):
         super().__init__(n_nodes)
 
         assert_density_valid(density)
-        self._density = density
+        self._density_ind_set = 1-density
 
         assert_n_max_clique_valid(n_max_clique, n_nodes)
         self._n_max_clique = n_max_clique
@@ -83,7 +83,7 @@ class MCPBrockFactory(GraphFactory):
         """Connects the graph using the brock algorithm."""
 
         outside_nodes = [v for v in range(0, self.n_nodes) if v not in self._max_clique]
-        (p0, p1) = self._calculate_p0_p1(self.n_nodes, self._density, self._n_max_clique, self._u)
+        (p0, p1) = self._calculate_p0_p1(self.n_nodes, self._density_ind_set, self._n_max_clique, self._u)
 
         for outside_node in outside_nodes:
 

@@ -1,31 +1,27 @@
-"""Tests a HCProblem instance"""
+"""Tests a MCPBrockFactory instance"""
 import pytest
 
-import numpy as np
-import numpy.testing as npt
 
-
-from nphard_generators import MCPHamming2Factory
+from nphard_generators import MCPBrockFactory
 from nphard_generators.types import MCProblemSolution
 
 
-class TestMCPRandomFactory:
-    """Tests for the MCPHamming2Factory."""
+class TestMCPBrockFactory:
+    """Tests for the MCPBrockFactory."""
 
-    @pytest.mark.parametrize("n, max_clique_expected, edges", [
-        (9, np.array([1,2,4,7,8]), [(0, 3), (1,2)]),
-        (10, np.array([0,3,5,6,9]), [(6, 9), (3,5)]),
+    @pytest.mark.flaky(reruns=3)
+    @pytest.mark.parametrize("n, d, s, h", [
+        (20, 0.4, 4, 1),
     ])
-    def test_various_shapes(self, n, max_clique_expected, edges):
+    def test_various_shapes(self, n, d, s, h):
         """Test some configurations for expected max_clique"""
-        hamming_problem = MCPHamming2Factory.generate_instance(n)
+        brock_problem = MCPBrockFactory.generate_instance(n, d, s, h)
 
-        assert isinstance(hamming_problem, MCProblemSolution)
-        assert hamming_problem.n_nodes == n, "n_nodes differs."
+        assert isinstance(brock_problem, MCProblemSolution)
+        assert brock_problem.n_nodes == n, "n_nodes differs."
+        assert brock_problem.n_max_clique == s, "n_max_clique differs."
+        assert brock_problem.max_clique.size == s, "max_clique not size s"
+        assert brock_problem.graph_density == pytest.approx(d, abs=0.05),"density incorrect"
 
-        npt.assert_array_equal(
-            hamming_problem.max_clique, max_clique_expected, "max_clique differs from expected."
-        )
-
-        for (u,v) in edges:
-            assert hamming_problem.has_edge(u, v)
+        assert brock_problem.has_edge(brock_problem.max_clique[0], brock_problem.max_clique[1])
+        assert brock_problem.has_edge(brock_problem.max_clique[1], brock_problem.max_clique[2])
