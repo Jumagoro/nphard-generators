@@ -33,10 +33,6 @@ class MCPHammingFactory(GraphFactory):
         Test case generators and computational results for the maximum clique problem.
         *Journal of Global Optimization, 3*, 463-482.
     """
-    @staticmethod
-    # pylint: disable=arguments-differ
-    def generate_instance():
-        raise NotImplementedError("MCPHammingFactory is abstract. Use subclass.")
 
     def __init__(self, n_nodes: int, hamming_distance: int):
         super().__init__(n_nodes)

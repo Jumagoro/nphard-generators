@@ -13,14 +13,12 @@ __all__ = [
 import numpy as np
 from scipy.sparse import csr_array
 
-from nphard_generators.types.graph_problem import assert_is_np_int_array, assert_is_subset, get_np_array_as_string
+from nphard_generators.types.graph_problem import (
+    assert_is_np_int_array, assert_is_subset, get_np_array_as_string
+)
 from nphard_generators.types.maximum_clique_problem.mc_problem_simple_solution import (
     MCProblemSimpleSolution
 )
-
-
-
-
 
 
 class MCProblemSolution(MCProblemSimpleSolution):

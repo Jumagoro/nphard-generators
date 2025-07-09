@@ -13,8 +13,9 @@ __all__ = [
 
 from math import floor
 from nphard_generators.maximum_clique_problem.mcp_hamming_factory import MCPHammingFactory
-from nphard_generators.types.maximum_clique_problem.mc_problem_simple_solution import MCProblemSimpleSolution
-from nphard_generators.types.maximum_clique_problem.mc_problem_solution import MCProblemSolution
+from nphard_generators.types.maximum_clique_problem.mc_problem_simple_solution import (
+    MCProblemSimpleSolution
+)
 
 
 class MCPHamming3Factory(MCPHammingFactory):
@@ -58,7 +59,5 @@ class MCPHamming3Factory(MCPHammingFactory):
         Formula is extracted from empirical evaluations."""
         if self.n_nodes < 5:
             return self.n_nodes
-        
-        return 2*(floor((self.n_nodes-5)/16)+1)+floor(((self.n_nodes-5)%16)/12)
 
-       
+        return 2*(floor((self.n_nodes-5)/16)+1)+floor(((self.n_nodes-5)%16)/12)

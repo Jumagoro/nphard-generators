@@ -15,7 +15,9 @@ import random
 import numpy as np
 import scipy.special as scp
 
-from nphard_generators.graph_factory import GraphFactory, assert_density_valid, assert_n_max_clique_valid
+from nphard_generators.graph_factory import (
+    GraphFactory, assert_density_valid, assert_n_max_clique_valid
+)
 from nphard_generators.types.graph_problem import calculate_max_edge_count_for_n_nodes
 from nphard_generators.types.maximum_clique_problem.mc_problem_solution import MCProblemSolution
 
@@ -90,7 +92,7 @@ class MCPSynA1Factory(GraphFactory):
 
                 if n_added_edges >= max_additional_edges:
                     return
-                
+
                 if len(possible_others) <= 0:
                     continue
 

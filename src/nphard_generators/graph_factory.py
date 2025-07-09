@@ -158,6 +158,7 @@ class GraphFactory(ABC):
         if not isinstance(nodes, np.ndarray) or not np.issubdtype(nodes.dtype, np.integer):
             raise TypeError("Input must be a NumPy array of integers.")
 
-        for node_a in range(len(nodes)):    # Connect all edges in the nodes list
-            for node_b in range(node_a + 1, len(nodes)):
-                self._connect_edge(node_a, node_b)
+        for node_a in nodes:    # Connect all edges in the nodes list
+            for node_b in nodes:
+                if node_a != node_b:
+                    self._connect_edge(node_a, node_b)

@@ -35,8 +35,10 @@ class MCPSynA3Factory(RandomFactory):
         - A random max clique with an overhead size is implemented to the graph.
 
     References:
-
-        # TODO: Add bollobas
+        Bollobás, B. (2001).
+        Random graphs (2nd ed.).
+        *Cambridge University Press*, 282-290
+        https://www.cambridge.org/9780521809207
     """
 
     @staticmethod
@@ -57,7 +59,7 @@ class MCPSynA3Factory(RandomFactory):
         self._max_clique = np.random.choice(n_nodes, _n_max_clique, replace=False)
 
         # TODO: Density is now a bit higher due to the additional edges of the inserted clique
-        # TODO: You could think about calculating the additional nodes first and only add them
+        # TODO: Solution: Calculate density for remaining connections after inserting clique
 
     def to_problem(self):
         """Creates a MCProblemSolution out of this factory."""

@@ -6,6 +6,8 @@ from .random_factory import RandomFactory
 from .maximum_clique_problem.mcp_random_factory import MCPRandomFactory
 
 from .hamiltonian_cycle_problem.hcp_random_factory import HCPRandomFactory
+from .hamiltonian_cycle_problem.hcp_syn_h1_factory import HCPSynH1Factory
+from .hamiltonian_cycle_problem.hcp_syn_h2_factory import HCPSynH2Factory
 
 from .maximum_clique_problem.mcp_cfat_factory import MCPCFatFactory
 from .maximum_clique_problem.mcp_syn_a1_factory import MCPSynA1Factory
@@ -32,5 +34,8 @@ __all__ = [
     "MCPSanchisFactory",
     "MCPHamming2Factory",
     "MCPHamming3Factory",
-    "MCPBrockFactory"
+    "MCPBrockFactory",
+
+    "HCPSynH1Factory",
+    "HCPSynH2Factory"
 ]

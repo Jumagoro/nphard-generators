@@ -11,10 +11,7 @@ __all__ = [
 ]
 
 
-from math import ceil, floor, log2
-
 import numpy as np
-from nphard_generators.graph_factory import GraphFactory
 from nphard_generators.maximum_clique_problem.mcp_hamming_factory import MCPHammingFactory
 from nphard_generators.types.maximum_clique_problem.mc_problem_solution import MCProblemSolution
 

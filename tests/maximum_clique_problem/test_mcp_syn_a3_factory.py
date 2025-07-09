@@ -1,4 +1,4 @@
-"""Tests a MCPBrockFactory instance"""
+"""Tests a MCPSynA3Factory instance"""
 import pytest
 
 
@@ -6,8 +6,8 @@ from nphard_generators import MCPSynA3Factory
 from nphard_generators.types import MCProblemSolution
 
 
-class TestMCPBrockFactory:
-    """Tests for the MCPBrockFactory."""
+class TestMCPSynA3Factory:
+    """Tests for the MCPSynA3Factory."""
 
     @pytest.mark.flaky(reruns=3)
     @pytest.mark.parametrize("n_nodes, density", [

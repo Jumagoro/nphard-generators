@@ -83,7 +83,8 @@ class MCPBrockFactory(GraphFactory):
         """Connects the graph using the brock algorithm."""
 
         outside_nodes = [v for v in range(0, self.n_nodes) if v not in self._max_clique]
-        (p0, p1) = self._calculate_p0_p1(self.n_nodes, self._density_ind_set, self._n_max_clique, self._u)
+        (p0, p1) = self._calculate_p0_p1(
+            self.n_nodes, self._density_ind_set, self._n_max_clique, self._u)
 
         for outside_node in outside_nodes:
 
@@ -131,16 +132,17 @@ class MCPBrockFactory(GraphFactory):
 
         if abs(f_max) < epsilon:
             return max_x
-        elif f_max < 0:
-            raise ValueError("Level of hiding and edge density yield a non-real solution.")
-        else:
-            # Use bisection to solve f(p1)=0
-            p1 = bisect(
-                self._p1_function, min_x, max_x,
-                args=(density, n_nodes, n_max_clique, u), xtol=epsilon
-            )
 
-            return float(p1)
+        if f_max < 0:
+            raise ValueError("Level of hiding and edge density yield a non-real solution.")
+
+        # Use bisection to solve f(p1)=0
+        p1 = bisect(
+            self._p1_function, min_x, max_x,
+            args=(density, n_nodes, n_max_clique, u), xtol=epsilon
+        )
+
+        return float(p1)
 
     def _calculate_p0(self, n, s, u, p1):
         """Calculates the probability p0 for outside connections.

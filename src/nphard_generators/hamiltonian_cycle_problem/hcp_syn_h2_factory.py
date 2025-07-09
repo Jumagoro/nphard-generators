@@ -13,8 +13,9 @@ __all__ = [
 
 import random
 
+import numpy as np
+
 from nphard_generators.random_factory import RandomFactory
-from nphard_generators.types.hamiltonian_cycle_problem.hc_problem_simple_solution import HCProblemSimpleSolution
 from nphard_generators.types.hamiltonian_cycle_problem.hc_problem_solution import HCProblemSolution
 
 class HCPSynH2Factory(RandomFactory):
@@ -34,10 +35,13 @@ class HCPSynH2Factory(RandomFactory):
     def generate_instance(n_nodes: int, density: float) -> HCProblemSolution:
         """Creates a hamiltonian graph using a trivial approach."""
         return HCPSynH2Factory(n_nodes, density).connect_graph().to_problem()
-    
+
     def __init__(self, n_nodes, density):
         super().__init__(n_nodes, density)
-        self._cycle_nodes = random.sample(range(0, self.n_nodes), self.n_nodes)
+        self._cycle_nodes = np.array(random.sample(range(0, self.n_nodes), self.n_nodes))
+
+        # TODO: Density is now a bit higher due to the additional edges of the circle
+        # TODO: Solution: Calculate density for remaining connections after creating circle
 
     def to_problem(self) -> HCProblemSolution:
         """Creates a HCProblemSolution out of this factory."""
@@ -48,5 +52,5 @@ class HCPSynH2Factory(RandomFactory):
 
         super()._connect_graph_logic()  # Connects the graph randomly
 
-        for i in range(-1, len(self._cycle_nodes)-1): # Start with -1 to connect last to first
-            self._connect_edge(self._cycle_nodes[i], self._cycle_nodes[i+1])
+        for (i, _) in enumerate(self._cycle_nodes): # Connect cycle
+            self._connect_edge(self._cycle_nodes[i-1], self._cycle_nodes[i])
