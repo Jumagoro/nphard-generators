@@ -58,8 +58,8 @@ class MCPSynA3Factory(RandomFactory):
 
         self._max_clique = np.random.choice(n_nodes, _n_max_clique, replace=False)
 
-        # TODO: Density is now a bit higher due to the additional edges of the inserted clique
-        # TODO: Solution: Calculate density for remaining connections after inserting clique
+        # TODO: Density is now a bit higher due to the additional edges of the circle
+        """Solution: Calculate n_edges missing -> select random nodes, check if ok and connect"""
 
     def to_problem(self):
         """Creates a MCProblemSolution out of this factory."""

@@ -36,6 +36,6 @@ __all__ = [
     "MCPHamming3Factory",
     "MCPBrockFactory",
 
-    "HCPSynH1Factory",
-    "HCPSynH2Factory"
+    "HCPSynH2Factory",
+    "HCPSynH1Factory"
 ]
