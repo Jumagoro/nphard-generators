@@ -46,4 +46,4 @@ class HCProblemSolution(HCProblemSimpleSolution):
 
         cycle_nodes_comment = f"cycle_nodes: {get_np_array_as_string(self.cycle_nodes)}"
 
-        super().to_file(path_to_file, [cycle_nodes_comment] + comments)
+        super().to_file(path_to_file, [cycle_nodes_comment] + (comments or []))

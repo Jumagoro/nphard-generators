@@ -46,4 +46,4 @@ class MCProblemSolution(MCProblemSimpleSolution):
 
         max_clique_comment = f"max_clique: {get_np_array_as_string(self.max_clique)}"
 
-        super().to_file(path_to_file, [max_clique_comment] + comments)
+        super().to_file(path_to_file, [max_clique_comment] + (comments or []))

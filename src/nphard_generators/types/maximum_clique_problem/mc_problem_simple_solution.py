@@ -33,4 +33,4 @@ class MCProblemSimpleSolution(MCProblem):
 
         n_max_clique_comment = f"n_max_clique: {self.n_max_clique}"
 
-        super().to_file(path_to_file, [n_max_clique_comment] + comments)
+        super().to_file(path_to_file, [n_max_clique_comment] + (comments or []))

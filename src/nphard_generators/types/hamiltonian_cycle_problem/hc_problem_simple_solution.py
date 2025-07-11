@@ -33,4 +33,4 @@ class HCProblemSimpleSolution(HCProblem):
 
         is_hamiltonian_comment = f"is_hamiltonian_should={self.is_hamiltonian}"
 
-        super().to_file(path_to_file, [is_hamiltonian_comment] + comments)
+        super().to_file(path_to_file, [is_hamiltonian_comment] + (comments or []))
