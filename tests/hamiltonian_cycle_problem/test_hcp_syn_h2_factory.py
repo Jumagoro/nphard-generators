@@ -13,7 +13,7 @@ class TestHCPSynH1Factory:
     """Tests for the HCPSynH1Factory."""
 
     # rerun up to 3 times, since random sometimes creates higher / lower densities
-    @pytest.mark.flaky(reruns=3)
+    @pytest.mark.flaky(reruns=6)
     def test_basic_requirements(self):
         """Tests if a graph fullfills basic requirements.
 
@@ -35,10 +35,10 @@ class TestHCPSynH1Factory:
         npt.assert_array_equal(
             synh1_problem.available_verticies, verticies_should, "available_verticies incorrect")
 
-        assert synh1_problem.graph_density == pytest.approx(density, abs=0.2),"density incorrect"
+        assert synh1_problem.graph_density == pytest.approx(density, abs=0.16),"density incorrect"
 
         assert synh1_problem.n_edges == pytest.approx(
-            n_edges_should, abs=n_edges_should*0.2),"n_edges incorrect"
+            n_edges_should, abs=n_edges_should*0.16),"n_edges incorrect"
 
         for (i, _) in enumerate(synh1_problem.cycle_nodes):  # Check if cycle is complete
             node_a = synh1_problem.cycle_nodes[i-1]

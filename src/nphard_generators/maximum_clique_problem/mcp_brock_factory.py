@@ -110,7 +110,7 @@ class MCPBrockFactory(GraphFactory):
         if u == -1:
             return (density, density)
 
-        p1 = self._calculate_p1(n_nodes, density, n_max_clique, u)        
+        p1 = self._calculate_p1(n_nodes, density, n_max_clique, u)
         p0 = self._calculate_p0(n_nodes, n_max_clique, u, p1)
         return (p0, p1)
 
@@ -121,7 +121,7 @@ class MCPBrockFactory(GraphFactory):
             The original paper uses an i=u-1. For more clarity, this subtraction is done
             in the constructor so the classes uses directly u everywhere.
         """
-        assert u >= 0 and u <=3, f"u out of range 0 <= u <= 3. Is {u}."
+        assert 0 <= u <= 3, f"u out of range 0 <= u <= 3. Is {u}."
 
         epsilon = 1e-12
 

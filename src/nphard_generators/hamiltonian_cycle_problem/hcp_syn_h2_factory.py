@@ -46,7 +46,7 @@ class HCPSynH2Factory(GraphFactory):
         assert n_nodes >=7, f"Structure requires at least 7 nodes. Is {n_nodes}."
 
         # TODO: Density is now a bit higher due to the additional edges of the circle
-        """Solution: Calculate n_edges missing -> select random nodes, check if ok and connect"""
+        # Solution: Calculate n_edges missing -> select random nodes, check if ok and connect
 
     def to_problem(self) -> HCProblemSolution:
         """Creates a HCProblemSolution out of this factory."""

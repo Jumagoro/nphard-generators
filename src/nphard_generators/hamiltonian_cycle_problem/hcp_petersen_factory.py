@@ -74,12 +74,12 @@ class HCPPetersenFactory(GraphFactory):
             u_1 = (i + 1) % self._n
             self._connect_edge(u_0, u_1)
 
-        for i in range(0, self._n):  # Connect each v (v_i -> v_i+k)
+            # Connect each v (v_i -> v_i+k)
             v_0 = i+self._n
             v_1 = ((i + self._k) % self._n) + self._n
             self._connect_edge(v_0, v_1)
 
-        for i in range(self._n):     # Connect u -> v (u_i -> v_i)
+            # Connect u -> v (u_i -> v_i)
             self._connect_edge(i, self._n+i)
 
     # Returns if the given peterson configuration is hamiltonian or not
