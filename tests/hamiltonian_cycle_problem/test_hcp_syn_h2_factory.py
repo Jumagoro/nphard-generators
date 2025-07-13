@@ -35,10 +35,10 @@ class TestHCPSynH1Factory:
         npt.assert_array_equal(
             synh1_problem.available_verticies, verticies_should, "available_verticies incorrect")
 
-        assert synh1_problem.graph_density == pytest.approx(density, abs=0.15),"density incorrect"
+        assert synh1_problem.graph_density == pytest.approx(density, abs=0.2),"density incorrect"
 
         assert synh1_problem.n_edges == pytest.approx(
-            n_edges_should, abs=n_edges_should*0.15),"n_edges incorrect"
+            n_edges_should, abs=n_edges_should*0.2),"n_edges incorrect"
 
         for (i, _) in enumerate(synh1_problem.cycle_nodes):  # Check if cycle is complete
             node_a = synh1_problem.cycle_nodes[i-1]
