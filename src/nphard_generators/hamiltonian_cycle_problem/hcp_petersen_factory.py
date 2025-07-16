@@ -82,7 +82,6 @@ class HCPPetersenFactory(GraphFactory):
             # Connect u -> v (u_i -> v_i)
             self._connect_edge(i, self._n+i)
 
-    # Returns if the given peterson configuration is hamiltonian or not
     def _is_hamiltonian(self, n, k):
         """Returns, whether or not the given petersen configuration is hamiltonian"""
         if (n%6)==5 and k in (2, n-2, (n-1)/2, (n+1)/2):
