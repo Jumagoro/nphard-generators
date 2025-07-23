@@ -16,8 +16,8 @@ class TestHCPPetersenFactory:
     @pytest.mark.parametrize("n_nodes, k, is_hamiltonian_expected, edges", [
         (3*2, 2, True, [(0,1), (1,2), (0,2), (3,4), (4,5), (3,5), (0,3), (1,4), (2,5)]),
         (4*2, 3, True, [(0,1), (1,2), (2,3), (3,0), (0,4)]),
-        (11*2, 9, True, [(0,1), (0,11), (11, 20)]),
-        (4*2, 2, False, []),
+        (11*2, 9, False, [(0,1), (0,11), (11, 20)]),
+        (5*2, 2, False, []),
     ])
     def test_basic_requirements(self, n_nodes, k, is_hamiltonian_expected, edges):
         """Tests if a graph fullfills basic requirements.
