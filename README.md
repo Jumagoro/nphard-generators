@@ -35,19 +35,17 @@ HCPPetersenFactory.generate_instance(23*2, 13).to_file("dataset_hcp/petersen_h.t
 ```
 
 ### Access types
-ProblemSolution refers to a whole solution (e.g. size and which nodes), ProblemSimpleSolution only to the size
+ProblemSolution refers to a whole solution (e.g. size and which nodes), ProblemSimpleSolution only to the size  
 `from nphard_generators.types import MCProblemSolution, ...`
 
 ## Installation
 Ensure you have a valid python installation running, e.g. Python 3.11
 
-### Install as package from TestPyPi
-`pip install --index-url https://test.pypi.org/simple/ nphard-generators`
-or
-`pip install --upgrade --index-url https://test.pypi.org/simple/ nphard-generators`
+### Regular install
+`pip install nphard-generators`
 
-### Installing local for usage:
-`pip install -e .` Installs nphard-generators itself as well as relevant libraries such as numpy, etc.
+### Install from TestPyPi
+`pip install --upgrade --index-url https://test.pypi.org/simple/ nphard-generators`
 
 ### Installing local for development:
 `pip install -e .[dev]` Installs relevant libraries as well as pytest, etc.
