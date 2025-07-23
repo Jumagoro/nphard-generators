@@ -4,11 +4,8 @@ import pytest
 import numpy as np
 import numpy.testing as npt
 
-from nphard_generators.hamiltonian_cycle_problem.hcp_petersen_factory import HCPPetersenFactory
-from nphard_generators.types.hamiltonian_cycle_problem.hc_problem_simple_solution import (
-    HCProblemSimpleSolution
-)
-
+from nphard_generators import HCPPetersenFactory
+from nphard_generators.types import HCProblemSimpleSolution
 
 class TestHCPPetersenFactory:
     """Tests for the HCPPetersenFactory."""
